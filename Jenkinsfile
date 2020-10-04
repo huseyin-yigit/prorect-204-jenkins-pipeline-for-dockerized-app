@@ -21,6 +21,8 @@ pipeline{
         stage('Build App Docker Images'){
             steps {
                 echo 'Building app Docker images'
+                sh 'docker build --force-rm -t "${ECR_REGISTRY}/${APP_REPO_NAME}:latest" .'
+                sh 'docker image ls'
             }
         }
         stage('Push Docker Images to ECR Repo'){
@@ -52,6 +54,7 @@ pipeline{
     post {
         always {
             echo 'Deleting all local images'
+            sh 'docker image prune -af'
         }
         failure {
             echo 'Deleting the image repository on ECR due to failure'

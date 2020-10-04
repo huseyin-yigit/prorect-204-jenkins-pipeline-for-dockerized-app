@@ -1,8 +1,8 @@
 pipeline{
     agent { label "master" }
     environment {
-        ECR_REGISTRY = "556809112137.dkr.ecr.us-east-1.amazonaws.com/"
-        APP_REPO_NAME = "huseyin-repo/phonebook-app"
+        ECR_REGISTRY = "556809112137.dkr.ecr.us-east-1.amazonaws.com"
+        APP_REPO_NAME = "Huseyin-repo/phonebook-app"
         AWS_REGION = "us-east-1"
     }
     stages {
@@ -11,10 +11,10 @@ pipeline{
                 echo 'Creating ECR Repository'
                 sh """
                 aws ecr create-repository \
-                    --repository-name ${APP_REPO_NAME} \
-                    --image-scanning-configuration scanOnPush=false \
-                    --image-tag-mutability MUTABLE \
-                    --region ${AWS_REGION}
+                  --repository-name ${APP_REPO_NAME} \
+                  --image-scanning-configuration scanOnPush=false \
+                  --image-tag-mutability MUTABLE \
+                  --region ${AWS_REGION}
                 """
             }
         }
@@ -30,7 +30,6 @@ pipeline{
                 echo 'Pushing images to ECR'
                 sh 'aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}'
                 sh 'docker push "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"'
-                
             }
         }
         stage('Create Infrastructure for the App'){
@@ -65,3 +64,8 @@ pipeline{
         }
     }
 }
+
+
+
+
+

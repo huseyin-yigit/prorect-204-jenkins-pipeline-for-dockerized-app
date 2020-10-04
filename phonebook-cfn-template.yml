@@ -229,7 +229,7 @@ Resources:
   DockerWorker2:
     Type: "AWS::EC2::Instance"
     DependsOn:
-        - DockerWorker2
+        - DockerWorker1
     Properties:
       LaunchTemplate:
         LaunchTemplateId: !Ref WorkersLT

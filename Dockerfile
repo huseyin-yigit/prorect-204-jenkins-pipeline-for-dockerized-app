@@ -1,5 +1,5 @@
 FROM python:alpine
-COPY ./app
+COPY ./app/app
 WORK /app
 RUN pip install -r requirements.txt
 EXPOSE 80
